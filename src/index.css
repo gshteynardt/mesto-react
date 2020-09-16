@@ -1,13 +1,27 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url(vendor/normalize.css);
+@import url(vendor/font/font.css);
+@import url(blocks/page/page.css);
+@import url(blocks/header/header.css);
+@import url(blocks/logo/logo.css);
+@import url(blocks/profile/profile.css);
+@import url(blocks/elements/elements.css);
+@import url(blocks/button/button.css);
+@import url(blocks/button/__like/button__like.css);
+@import url(blocks/button/__like/_active/button__like_active.css);
+@import url(blocks/button/_edit/button_edit.css);
+@import url(blocks/button/_edit-avatar/button_edit-avatar.css);
+@import url(blocks/button/_add/button_add.css);
+@import url(blocks/button/_submit/button_submit.css);
+@import url(blocks/button/_submit/_theme/button_submit_theme_card-delete.css);
+@import url(blocks/button/_delete/button_delete.css);
+@import url(blocks/button/_disabled/button_disabled.css);
+@import url(blocks/popup/popup.css);
+@import url(blocks/popup/_opened/popup_opened.css);
+@import url(blocks/footer/footer.css);
+@import url(blocks/lds-default/lds-default.css);
+
+#root {
+	background-color: #000;
+	color: #fff;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
