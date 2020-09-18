@@ -1,6 +1,12 @@
 import React from "react";
 
-const Card = ({link, name, likes,}) => {
+const Card = ({card, onCardClick}) => {
+
+  const {link, name, likes} = card;
+
+  const handleCardClick = () => {
+    onCardClick(card);
+  }
 
   return <>
     <li className="elements__item">
@@ -11,7 +17,7 @@ const Card = ({link, name, likes,}) => {
             fill="#fff"/>
         </svg>
       </button>
-      <img src={link} alt={name} className="elements__img" />
+      <img src={link} alt={name} onClick={handleCardClick} className="elements__img" />
       <div className="elements__wrap">
         <h2 className="elements__title">{name}</h2>
         <div className="elements__container">

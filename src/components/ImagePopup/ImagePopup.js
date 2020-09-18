@@ -1,13 +1,18 @@
 import React from "react";
 
-function ImagePopup() {
+const ImagePopup = ({card, onClose}) => {
+
+
+  const className = `popup popup_theme_image ${card && 'popup_opened'}`
   return(
-    <section className="popup popup_theme_image">
+    <section className={className} >
       <div className="popup__container popup__container_theme_img">
-        <button type="button" className="button popup__close">
+        <button type="button" className="button popup__close"
+                onClick={onClose}
+        >
         </button>
-        <img src="#" alt="" className="popup__img" />
-        <p className="popup__caption"></p>
+        <img src={card ? card.link : ''} alt={card ? card.name : ''} className="popup__img" />
+        <p className="popup__caption">{card ? card.name : ''}</p>
       </div>
     </section>
   );
