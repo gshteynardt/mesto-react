@@ -1,14 +1,17 @@
 import React, {useState, useEffect} from "react";
 import api from '../../utils/api';
 import Card from '../Card/Card';
+import Preloader from '../Preloader/Preloader';
 
 const Main = ({onAddPlace, onEditAvatar, onEditProfile, onCardClick}) =>  {
-  const [userName, setUserName] = useState();
-  const [userDescription, setUserDescription] = useState();
-  const [userAvatar, setUserAvatar] = useState();
+  const [userName, setUserName] = useState('');
+  const [userDescription, setUserDescription] = useState('');
+  const [userAvatar, setUserAvatar] = useState('#');
   const [cards, setCards] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     api.getAppInfo()
       .then(data => {
         const [initialCards, profileData] = data;
@@ -16,32 +19,22 @@ const Main = ({onAddPlace, onEditAvatar, onEditProfile, onCardClick}) =>  {
         setUserDescription(profileData.about);
         setUserAvatar(profileData.avatar);
 
-        setCards(initialCards.map( card => (<Card
+        const items = initialCards.map( card => (<Card
           card = {card}
           key={card._id}
           onCardClick={onCardClick}
           />)
-        ));
+        );
+
+        setCards(items);
       })
+      .catch(err => console.log(err))
+      .finally(() => setIsLoading(false));
   }, []);
 
   return(
     <>
       <main className="page__content">
-        <div className="lds-default">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
         <section className="profile page__profile">
           <div className="profile__info">
             <div className="profile__wrap">
@@ -63,7 +56,11 @@ const Main = ({onAddPlace, onEditAvatar, onEditProfile, onCardClick}) =>  {
         </section>
         <section className="elements">
           <ul className="elements__items">
-            {cards}
+            {
+              isLoading ?
+              <Preloader/>
+              : cards
+            }
           </ul>
         </section>
       </main>
