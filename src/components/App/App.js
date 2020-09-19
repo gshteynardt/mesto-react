@@ -50,11 +50,11 @@ function App() {
       onClose={closeAllPopups}
     >
       <label className="popup__field">
-        <input type="text" className="popup__input popup__input_type_name" name="name" value="type here" minLength="2" maxLength="40" required />
+        <input type="text" className="popup__input popup__input_type_name" name="name" minLength="2" maxLength="40" required />
         <span className="popup__error"></span>
       </label>
       <label className="popup__field">
-        <input type="text" className="popup__input popup__input_type_job" name="about" value="type here" minLength="2" maxLength="200" required />
+        <input type="text" className="popup__input popup__input_type_job" name="about"  minLength="2" maxLength="200" required />
         <span className="popup__error"></span>
       </label>
     </PopupWithForm>
@@ -66,12 +66,12 @@ function App() {
         onClose={closeAllPopups}
       >
         <label className="popup__field">
-          <input type="text" className="popup__input popup__input_type_name" name="name" value="type here"
+          <input type="text" className="popup__input popup__input_type_name" name="name"
                  minLength="2" maxLength="40" required />
           <span className="popup__error"></span>
         </label>
         <label className="popup__field">
-          <input type="text" className="popup__input popup__input_type_job" name="about" value="type here"
+          <input type="text" className="popup__input popup__input_type_job" name="about"
                  minLength="2"
                  maxLength="200" required />
           <span className="popup__error"></span>
@@ -85,7 +85,7 @@ function App() {
         onClose={closeAllPopups}
       >
         <label className="popup__field">*/}
-          <input type="url" className="popup__input popup__input_type_link" name="link" value="" placeholder="Ссылка на картинку" required />
+          <input type="url" className="popup__input popup__input_type_link" name="link"  placeholder="Ссылка на картинку" required />
           <span className="popup__error"></span>
         </label>
       </PopupWithForm>
@@ -96,7 +96,7 @@ function App() {
         onClose={closeAllPopups}
       >
         <label className="popup__field">*/}
-          <input type="url" className="popup__input popup__input_type_link" name="link" value="" placeholder="Ссылка на картинку" required />
+          <input type="url" className="popup__input popup__input_type_link" name="link"  placeholder="Ссылка на картинку" required />
           <span className="popup__error"></span>
         </label>
       </PopupWithForm>

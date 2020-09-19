@@ -3,7 +3,6 @@ import React from "react";
 function PopupWithForm({name, title, isOpen, onClose, children}) {
 
   const className = `popup popup_theme_${name} ${isOpen && 'popup_opened'}`
-
   return(
     <section className={className}>
       <div className="popup__container">
