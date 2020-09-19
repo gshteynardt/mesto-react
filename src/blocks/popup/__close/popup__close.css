@@ -8,4 +8,9 @@
   top: -40px;
   right: -40px;
   cursor: pointer;
+  visibility: hidden;
+}
+
+.popup_opened .popup__close {
+  visibility: visible;
 }
