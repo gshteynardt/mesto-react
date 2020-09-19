@@ -2,6 +2,8 @@ import React from "react";
 
 const ImagePopup = ({card, onClose}) => {
 
+  const link = card ? card.link : '#';
+  const name = card ? card.name : '';
 
   const className = `popup popup_theme_image ${card && 'popup_opened'}`
   return(
@@ -11,8 +13,8 @@ const ImagePopup = ({card, onClose}) => {
                 onClick={onClose}
         >
         </button>
-        <img src={card ? card.link : ''} alt={card ? card.name : ''} className="popup__img" />
-        <p className="popup__caption">{card ? card.name : ''}</p>
+        <img src={link} alt={name} className="popup__img" />
+        <p className="popup__caption">{name}</p>
       </div>
     </section>
   );
