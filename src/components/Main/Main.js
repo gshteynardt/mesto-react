@@ -19,11 +19,14 @@ const Main = ({onAddPlace, onEditAvatar, onEditProfile, onCardClick}) =>  {
         setUserDescription(profileData.about);
         setUserAvatar(profileData.avatar);
 
-        const items = initialCards.map( card => (<Card
-          card = {card}
-          key={card._id}
-          onCardClick={onCardClick}
-          />)
+        const items = initialCards.map( card => (
+          {
+            link: card.link,
+            likes: card.likes.length,
+            name: card.name,
+            id: card._id,
+          }
+          )
         );
 
         setCards(items);
@@ -59,7 +62,7 @@ const Main = ({onAddPlace, onEditAvatar, onEditProfile, onCardClick}) =>  {
             {
               isLoading ?
               <Preloader/>
-              : cards
+              : cards.map(card => <Card card={card} key={card.id} onCardClick={onCardClick}/>)
             }
           </ul>
         </section>

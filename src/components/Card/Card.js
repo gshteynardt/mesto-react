@@ -22,7 +22,7 @@ const Card = ({card, onCardClick}) => {
         <h2 className="elements__title">{name}</h2>
         <div className="elements__container">
           <button type="button" className="button button__like" />
-          <h3 className="elements__likes">{likes.length}</h3>
+          <h3 className="elements__likes">{likes}</h3>
         </div>
       </div>
     </li>
