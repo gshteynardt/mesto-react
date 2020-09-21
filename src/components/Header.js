@@ -1,4 +1,4 @@
-import logoPath from "../../images/logo_mesto.svg";
+import logoPath from "../images/logo_mesto.svg";
 import React from "react";
 
 function Header() {

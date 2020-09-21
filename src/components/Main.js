@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
-import api from '../../utils/api';
-import Card from '../Card/Card';
-import Preloader from '../Preloader/Preloader';
+import api from '../utils/api';
+import Card from './Card';
+import Preloader from './Preloader';
 
 const Main = ({onAddPlace, onEditAvatar, onEditProfile, onCardClick}) =>  {
   const [userName, setUserName] = useState('');

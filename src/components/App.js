@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import Header from '../Header/Header';
-import Main from '../Main/Main';
-import Footer from '../Footer/Footer';
-import PopupWithForm from '../PopupWithForm/PopupWithForm';
-import ImagePopup from '../ImagePopup/ImagePopup';
+import Header from './Header';
+import Main from './Main';
+import Footer from './Footer';
+import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup';
 
 
 
@@ -29,7 +29,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
-    setSelectedCard(false);
+    setSelectedCard(null);
   }
 
   return (
@@ -50,11 +50,11 @@ function App() {
       onClose={closeAllPopups}
     >
       <label className="popup__field">
-        <input type="text" className="popup__input popup__input_type_name" name="name" minLength="2" maxLength="40" required />
+        <input type="text" className="popup__input popup__input_type_name" name="name" placeholder="Ваше имя" minLength="2" maxLength="40" required />
         <span className="popup__error"></span>
       </label>
       <label className="popup__field">
-        <input type="text" className="popup__input popup__input_type_job" name="about"  minLength="2" maxLength="200" required />
+        <input type="text" className="popup__input popup__input_type_job" name="about"  placeholder="Ваша профессия" minLength="2" maxLength="200" required />
         <span className="popup__error"></span>
       </label>
     </PopupWithForm>
@@ -66,15 +66,16 @@ function App() {
         onClose={closeAllPopups}
       >
         <label className="popup__field">
-          <input type="text" className="popup__input popup__input_type_name" name="name"
-                 minLength="2" maxLength="40" required />
-          <span className="popup__error"></span>
+          <input type="text" className="popup__input popup__input_type_place" name="name"
+                 placeholder="Название"
+                 minLength="1" maxLength="30" required />
+            <span className="popup__error"></span>
         </label>
+
         <label className="popup__field">
-          <input type="text" className="popup__input popup__input_type_job" name="about"
-                 minLength="2"
-                 maxLength="200" required />
-          <span className="popup__error"></span>
+          <input type="url" className="popup__input popup__input_type_link" name="link"
+                 placeholder="Ссылка на картинку" required />
+            <span className="popup__error"></span>
         </label>
       </PopupWithForm>
 
