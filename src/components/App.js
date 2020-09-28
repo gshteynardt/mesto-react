@@ -58,7 +58,17 @@ function App() {
       .catch(err => console.log(err))
   }, [])
 
-  //поддержка лайков и дизлайков
+  //обновляем данные пользователя
+  const handleUpdateUser = (data) => {
+    api.editUserInfo(data)
+      .then(data => {
+        setCurrentUser(data);
+        closeAllPopups();
+      }
+    )
+  }
+
+  //функция лайков и дизлайков
   const handleCardLike = (card) => {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some(i => i._id === currentUser._id);
@@ -75,6 +85,7 @@ function App() {
     });
   }
 
+  //обработчик удаления карточек
   const handleCardDelete = (card) => {
     api.deleteCard(card._id)
       .then(() => {
@@ -99,7 +110,11 @@ function App() {
           />
           <Footer />
 
-          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}/>
+          <EditProfilePopup
+            isOpen={isEditProfilePopupOpen}
+            onClose={closeAllPopups}
+            onUpdateUser={handleUpdateUser}
+          />
 
           <PopupWithForm
             name="elements"

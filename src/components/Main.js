@@ -64,7 +64,7 @@ const Main = ({onAddPlace, onEditAvatar, onEditProfile, onCardClick, onCardLike,
               : cards.map(card =>
                   <Card
                   card={card}
-                  key={card.id}
+                  key={card._id}
                   onCardClick={onCardClick}
                   onCardLike={onCardLike}
                   onCardDelete={onCardDelete}
