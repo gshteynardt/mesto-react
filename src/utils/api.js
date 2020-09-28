@@ -70,21 +70,21 @@ class Api {
       .then(res => this._handleOriginal(res));
   }
 
-  addLikeCard(cardID) {
+  changeLikeCardStatus(cardID, isLiked) {
     return fetch(`${this._baseUrl}/cards/likes/${cardID}`, {
-      method: 'PUT',
+      method: isLiked ? 'PUT' : 'DELETE',
       headers: this._headers
     })
       .then(res => this._handleOriginal(res));
   }
 
-  deleteLikeCard(cardID) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardID}`, {
-      method: 'DELETE',
-      headers: this._headers
-    })
-      .then(res => this._handleOriginal(res));
-  }
+  // deleteLikeCard(cardID) {
+  //   return fetch(`${this._baseUrl}/cards/likes/${cardID}`, {
+  //     method: 'DELETE',
+  //     headers: this._headers
+  //   })
+  //     .then(res => this._handleOriginal(res));
+  // }
 
 }
 

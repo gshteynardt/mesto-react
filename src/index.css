@@ -5,6 +5,8 @@
 @import url(blocks/logo/logo.css);
 @import url(blocks/profile/profile.css);
 @import url(blocks/elements/elements.css);
+@import url(blocks/elements/__delete/elements__delete-button_hidden.css);
+@import url(blocks/elements/__delete/elements__delete-button_visible.css);
 @import url(blocks/button/button.css);
 @import url(blocks/button/__like/button__like.css);
 @import url(blocks/button/__like/_active/button__like_active.css);
@@ -13,7 +15,6 @@
 @import url(blocks/button/_add/button_add.css);
 @import url(blocks/button/_submit/button_submit.css);
 @import url(blocks/button/_submit/_theme/button_submit_theme_card-delete.css);
-@import url(blocks/button/_delete/button_delete.css);
 @import url(blocks/button/_disabled/button_disabled.css);
 @import url(blocks/popup/popup.css);
 @import url(blocks/popup/_opened/popup_opened.css);
