@@ -4,6 +4,7 @@ import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import { EditProfilePopup } from './EditProfilePopup';
+import { EditAvatarPopup } from './EditAvatarPopup';
 import ImagePopup from './ImagePopup';
 import api from '../utils/api.js';
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
@@ -42,7 +43,6 @@ function App() {
       .then(data => {
         const [initialCards, currentUserData ] = data;
         setCurrentUser(currentUserData);
-
         const items = initialCards.map( card => (
                   {
                     link: card.link,
@@ -64,8 +64,19 @@ function App() {
       .then(data => {
         setCurrentUser(data);
         closeAllPopups();
-      }
-    )
+      })
+      .catch(err => console.log(err))
+  }
+
+  //обновляем автар
+  const handleUpdateAvatar = (avatar) => {
+    console.log(avatar)
+    api.changeUserPicture(avatar)
+      .then( avatar => {
+        setCurrentUser(avatar);
+        closeAllPopups()
+      })
+      .catch(err => console.log(err))
   }
 
   //функция лайков и дизлайков
@@ -82,7 +93,8 @@ function App() {
 
       // Обновляем стейт
       setCards(newCards)
-    });
+    })
+      .catch(err => console.log(err))
   }
 
   //обработчик удаления карточек
@@ -92,7 +104,8 @@ function App() {
         const newCards = cards.filter(c => c._id !== card._id)
 
         setCards(newCards)
-      });
+      })
+      .catch(err => console.log(err))
   }
 
   return (
@@ -116,6 +129,12 @@ function App() {
             onUpdateUser={handleUpdateUser}
           />
 
+          <EditAvatarPopup
+            isOpen={isEditAvatarPopupOpen}
+            onClose={closeAllPopups}
+            onUpdateAvatar={handleUpdateAvatar}
+          />
+
           <PopupWithForm
             name="elements"
             title="Новое место"
@@ -132,18 +151,6 @@ function App() {
             <label className="popup__field">
               <input type="url" className="popup__input popup__input_type_link" name="link"
                      placeholder="Ссылка на картинку" required />
-              <span className="popup__error"></span>
-            </label>
-          </PopupWithForm>
-
-          <PopupWithForm
-            name="avatar"
-            title="Обновить аватар"
-            isOpen={isEditAvatarPopupOpen}
-            onClose={closeAllPopups}
-          >
-            <label className="popup__field">*/}
-              <input type="url" className="popup__input popup__input_type_link" name="link"  placeholder="Ссылка на картинку" required />
               <span className="popup__error"></span>
             </label>
           </PopupWithForm>

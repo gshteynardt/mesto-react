@@ -1,5 +1,5 @@
-import PopupWithForm from './PopupWithForm'
-import React, { useState, useEffect } from "react";
+  import PopupWithForm from './PopupWithForm'
+  import React, { useState, useEffect } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 export const EditProfilePopup = ({isOpen, onClose, onUpdateUser}) => {
@@ -7,7 +7,7 @@ export const EditProfilePopup = ({isOpen, onClose, onUpdateUser}) => {
   const [description, setDescription] = useState('');
   const currentUser = React.useContext(CurrentUserContext);
 
-  //при рендеренге заполняются значения по умолчанию
+  //при рендеренге заполняются значения о пользователи по умолчанию
   useEffect(() => {
     setName(currentUser.name || '');
     setDescription(currentUser.about || '');

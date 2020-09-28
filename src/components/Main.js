@@ -11,8 +11,6 @@ const Main = ({onAddPlace, onEditAvatar, onEditProfile, onCardClick, onCardLike,
   const {avatar, about, name, } = currentUser;
   const [isLoading, setIsLoading] = useState(false);
 
-
-
   // useEffect(() => {
   //   setIsLoading(true);
   //   api.getAppInfo()
