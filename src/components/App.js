@@ -3,12 +3,14 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
+import Preloader from './Preloader';
 import { EditProfilePopup } from './EditProfilePopup';
 import { EditAvatarPopup } from './EditAvatarPopup';
 import ImagePopup from './ImagePopup';
 import api from '../utils/api.js';
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { InitialCards } from "../contexts/initialCards";
+import { AddPlacePopup } from "./AddPlacePopup";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -17,6 +19,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -39,6 +42,7 @@ function App() {
   }
 
   useEffect(() => {
+    setIsLoading(true);
     api.getAppInfo()
       .then(data => {
         const [initialCards, currentUserData ] = data;
@@ -56,6 +60,7 @@ function App() {
                 setCards(items);
       })
       .catch(err => console.log(err))
+      .finally(() => setIsLoading(false));
   }, [])
 
   //обновляем данные пользователя
@@ -70,7 +75,6 @@ function App() {
 
   //обновляем автар
   const handleUpdateAvatar = (avatar) => {
-    console.log(avatar)
     api.changeUserPicture(avatar)
       .then( avatar => {
         setCurrentUser(avatar);
@@ -97,6 +101,26 @@ function App() {
       .catch(err => console.log(err))
   }
 
+  //обработчик добавления новых карточек
+  const handleAddPlaceSubmit = (newCard) => {
+    console.log(newCard)
+    api.createCard(newCard)
+      .then(newCard => {
+       //деструктуризируем новую карточку
+       const newItem = {
+         link: newCard.link,
+         likes: newCard.likes,
+         name: newCard.name,
+         _id: newCard._id,
+         ownerId: newCard.owner._id
+       }
+
+        setCards([...cards, newItem]);
+        closeAllPopups();
+      })
+      .catch(err => console.log(err))
+  }
+
   //обработчик удаления карточек
   const handleCardDelete = (card) => {
     api.deleteCard(card._id)
@@ -113,14 +137,16 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <div className="page">
           <Header />
-          <Main
+          {isLoading ?
+            <Preloader /> :
+            <Main
             onEditAvatar={handleEditAvatarClick}
             onEditProfile={handleEditProfileClick}
             onAddPlace={handleAddPlaceClick}
             onCardClick={setSelectedCard}
             onCardLike={handleCardLike}
             onCardDelete={handleCardDelete}
-          />
+          />}
           <Footer />
 
           <EditProfilePopup
@@ -135,26 +161,11 @@ function App() {
             onUpdateAvatar={handleUpdateAvatar}
           />
 
-          <PopupWithForm
-            name="elements"
-            title="Новое место"
+          <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
-          >
-            <label className="popup__field">
-              <input type="text" className="popup__input popup__input_type_place" name="name"
-                     placeholder="Название"
-                     minLength="1" maxLength="30" required />
-              <span className="popup__error"></span>
-            </label>
-
-            <label className="popup__field">
-              <input type="url" className="popup__input popup__input_type_link" name="link"
-                     placeholder="Ссылка на картинку" required />
-              <span className="popup__error"></span>
-            </label>
-          </PopupWithForm>
-
+            onAddPlace={handleAddPlaceSubmit}
+          />
           <PopupWithForm
             name="card-delete"
             title="Вы уверены?"

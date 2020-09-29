@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import Card from './Card';
-import Preloader from './Preloader';
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { InitialCards }  from "../contexts/initialCards";
 
@@ -9,28 +8,6 @@ const Main = ({onAddPlace, onEditAvatar, onEditProfile, onCardClick, onCardLike,
   const cards = React.useContext(InitialCards);
 
   const {avatar, about, name, } = currentUser;
-  const [isLoading, setIsLoading] = useState(false);
-
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   api.getAppInfo()
-  //     .then(data => {
-  //       const [initialCards] = data;
-  //
-  //       const items = initialCards.map( card => (
-  //         {
-  //           link: card.link,
-  //           likes: card.likes.length,
-  //           name: card.name,
-  //           id: card._id,
-  //         }
-  //         )
-  //       );
-  //       setCards(items);
-  //     })
-  //     .catch(err => console.log(err))
-  //     .finally(() => setIsLoading(false));
-  // }, []);
 
   return(
     <>
@@ -57,9 +34,7 @@ const Main = ({onAddPlace, onEditAvatar, onEditProfile, onCardClick, onCardLike,
         <section className="elements">
           <ul className="elements__items">
             {
-              isLoading ?
-              <Preloader/>
-              : cards.map(card =>
+              cards.map(card =>
                   <Card
                   card={card}
                   key={card._id}

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Preloader = props => {
+const Preloader = () => {
   return (
       <div className="lds-default">
         <div></div>
