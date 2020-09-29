@@ -8,6 +8,7 @@ import { EditProfilePopup } from './EditProfilePopup';
 import { EditAvatarPopup } from './EditAvatarPopup';
 import ImagePopup from './ImagePopup';
 import api from '../utils/api.js';
+import {transformCard} from "../utils/transformCard";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { InitialCards } from "../contexts/initialCards";
 import { AddPlacePopup } from "./AddPlacePopup";
@@ -47,17 +48,8 @@ function App() {
       .then(data => {
         const [initialCards, currentUserData ] = data;
         setCurrentUser(currentUserData);
-        const items = initialCards.map( card => (
-                  {
-                    link: card.link,
-                    likes: card.likes,
-                    name: card.name,
-                    _id: card._id,
-                    ownerId: card.owner._id
-                  }
-                  )
-                );
-                setCards(items);
+        const items = initialCards.map( card => transformCard(card));
+        setCards(items);
       })
       .catch(err => console.log(err))
       .finally(() => setIsLoading(false));
@@ -106,15 +98,7 @@ function App() {
     console.log(newCard)
     api.createCard(newCard)
       .then(newCard => {
-       //деструктуризируем новую карточку
-       const newItem = {
-         link: newCard.link,
-         likes: newCard.likes,
-         name: newCard.name,
-         _id: newCard._id,
-         ownerId: newCard.owner._id
-       }
-
+        const newItem = transformCard(newCard);
         setCards([...cards, newItem]);
         closeAllPopups();
       })
