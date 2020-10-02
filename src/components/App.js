@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
-import PopupWithForm from './PopupWithForm';
 import Preloader from './Preloader';
 import { EditProfilePopup } from './EditProfilePopup';
 import { EditAvatarPopup } from './EditAvatarPopup';
+import { PopupDeleteCard} from './PopupDeleteCard';
 import ImagePopup from './ImagePopup';
 import api from '../utils/api.js';
 import {transformCard} from "../utils/transformCard";
@@ -17,6 +17,8 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
+  const [isImgPopupOpen, setIsImgPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
@@ -34,11 +36,20 @@ function App() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
+  const handleDeleteCardClick = () => {
+    setIsDeleteCardPopupOpen(!isDeleteCardPopupOpen);
+  }
+
+  const handleImgCardClick = () => {
+    setIsImgPopupOpen(!isImgPopupOpen);
+  }
 
   const closeAllPopups = () => {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setIsDeleteCardPopupOpen(false);
+    setIsImgPopupOpen(false);
     setSelectedCard(null);
   }
 
@@ -95,7 +106,6 @@ function App() {
 
   //обработчик добавления новых карточек
   const handleAddPlaceSubmit = (newCard) => {
-    console.log(newCard)
     api.createCard(newCard)
       .then(newCard => {
         const newItem = transformCard(newCard);
@@ -110,8 +120,8 @@ function App() {
     api.deleteCard(card._id)
       .then(() => {
         const newCards = cards.filter(c => c._id !== card._id)
-
-        setCards(newCards)
+        setCards(newCards);
+        closeAllPopups();
       })
       .catch(err => console.log(err))
   }
@@ -127,9 +137,10 @@ function App() {
             onEditAvatar={handleEditAvatarClick}
             onEditProfile={handleEditProfileClick}
             onAddPlace={handleAddPlaceClick}
+            onPopupDeleteCard={handleDeleteCardClick}
+            onPopupImg={handleImgCardClick}
             onCardClick={setSelectedCard}
             onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
           />}
           <Footer />
 
@@ -150,20 +161,18 @@ function App() {
             onClose={closeAllPopups}
             onAddPlace={handleAddPlaceSubmit}
           />
-          <PopupWithForm
-            name="card-delete"
-            title="Вы уверены?"
+
+          <PopupDeleteCard
+            isOpen={isDeleteCardPopupOpen}
             onClose={closeAllPopups}
-          >
-            <label className="popup__field">*/}
-              <input type="url" className="popup__input popup__input_type_link" name="link"  placeholder="Ссылка на картинку" required />
-              <span className="popup__error"></span>
-            </label>
-          </PopupWithForm>
+            card={selectedCard}
+            onCardDelete={handleCardDelete}
+            />
 
           <ImagePopup
-            card={selectedCard}
+            isOpen={isImgPopupOpen}
             onClose={closeAllPopups}
+            card={selectedCard}
           />
 
         </div>
