@@ -110,7 +110,7 @@ function App() {
     api.createCard(newCard)
       .then(newCard => {
         const newItem = transformCard(newCard);
-        setCards([...cards, newItem]);
+        setCards([newItem, ...cards]);
         closeAllPopups();
       })
       .catch(err => console.log(err))
