@@ -11,6 +11,7 @@ import api from '../utils/api.js';
 import {transformCard} from "../utils/transformCard";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { InitialCards } from "../contexts/initialCards";
+import {TextForSubmitBtn, textForSubmitBtn} from "../contexts/TextForSubmitBtn";
 import { AddPlacePopup } from "./AddPlacePopup";
 
 function App() {
@@ -144,37 +145,38 @@ function App() {
           />}
           <Footer />
 
-          <EditProfilePopup
-            isOpen={isEditProfilePopupOpen}
-            onClose={closeAllPopups}
-            onUpdateUser={handleUpdateUser}
-          />
-
-          <EditAvatarPopup
-            isOpen={isEditAvatarPopupOpen}
-            onClose={closeAllPopups}
-            onUpdateAvatar={handleUpdateAvatar}
-          />
-
-          <AddPlacePopup
-            isOpen={isAddPlacePopupOpen}
-            onClose={closeAllPopups}
-            onAddPlace={handleAddPlaceSubmit}
-          />
-
-          <PopupDeleteCard
-            isOpen={isDeleteCardPopupOpen}
-            onClose={closeAllPopups}
-            card={selectedCard}
-            onCardDelete={handleCardDelete}
+          <TextForSubmitBtn.Provider value={textForSubmitBtn}>
+            <EditProfilePopup
+              isOpen={isEditProfilePopupOpen}
+              onClose={closeAllPopups}
+              onUpdateUser={handleUpdateUser}
             />
 
-          <ImagePopup
-            isOpen={isImgPopupOpen}
-            onClose={closeAllPopups}
-            card={selectedCard}
-          />
+            <EditAvatarPopup
+              isOpen={isEditAvatarPopupOpen}
+              onClose={closeAllPopups}
+              onUpdateAvatar={handleUpdateAvatar}
+            />
 
+            <AddPlacePopup
+              isOpen={isAddPlacePopupOpen}
+              onClose={closeAllPopups}
+              onAddPlace={handleAddPlaceSubmit}
+            />
+
+            <PopupDeleteCard
+              isOpen={isDeleteCardPopupOpen}
+              onClose={closeAllPopups}
+              card={selectedCard}
+              onCardDelete={handleCardDelete}
+            />
+
+            <ImagePopup
+              isOpen={isImgPopupOpen}
+              onClose={closeAllPopups}
+              card={selectedCard}
+            />
+          </TextForSubmitBtn.Provider>
         </div>
       </CurrentUserContext.Provider>
     </InitialCards.Provider>

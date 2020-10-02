@@ -1,11 +1,13 @@
-  import PopupWithForm from './PopupWithForm'
-  import React, { useState, useEffect } from "react";
+import PopupWithForm from './PopupWithForm'
+import React, {useState, useEffect, useContext} from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { TextForSubmitBtn } from "../contexts/TextForSubmitBtn";
 
 export const EditProfilePopup = ({isOpen, onClose, onUpdateUser}) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const currentUser = React.useContext(CurrentUserContext);
+  const textForSubmitBtn = useContext(TextForSubmitBtn);
 
   //при рендеренге заполняются значения о пользователи по умолчанию
   useEffect(() => {
@@ -42,6 +44,7 @@ export const EditProfilePopup = ({isOpen, onClose, onUpdateUser}) => {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
+      textSubmitBtn={textForSubmitBtn.save}
     >
       <label className="popup__field">
         <input

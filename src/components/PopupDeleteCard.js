@@ -1,6 +1,9 @@
-import React from "react";
+import React, {useContext} from "react";
 import PopupWithForm from './PopupWithForm'
+import { TextForSubmitBtn } from "../contexts/TextForSubmitBtn";
+
 export const PopupDeleteCard = ({card, isOpen, onClose, onCardDelete}) => {
+  const textForSubmitBtn = useContext(TextForSubmitBtn);
 
   const handleDeleteClick = (e) => {
     e.preventDefault();
@@ -9,14 +12,14 @@ export const PopupDeleteCard = ({card, isOpen, onClose, onCardDelete}) => {
 
   return (
     <PopupWithForm
-      name="card-delete"
+      name="card-delete popup__title_theme_card-delete"
       title="Вы уверены?"
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleDeleteClick}
+      textSubmitBtn={textForSubmitBtn.confirm}
     >
       <label className="popup__field">
-        <input type="url" className="popup__input popup__input_type_link" name="link"  placeholder="Ссылка на картинку" required />
         <span className="popup__error"></span>
       </label>
     </PopupWithForm>

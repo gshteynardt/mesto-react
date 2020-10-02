@@ -1,10 +1,11 @@
 import PopupWithForm from './PopupWithForm'
-import React, {useRef} from "react";
+import React, {useContext, useRef} from "react";
+import {TextForSubmitBtn} from "../contexts/TextForSubmitBtn";
 
 export const AddPlacePopup = ({isOpen, onClose, onAddPlace}) => {
   const nameRef = useRef();
   const linkRef = useRef();
-
+  const textForSubmitBtn = useContext(TextForSubmitBtn);
   //обработчик события submit
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,6 +23,7 @@ export const AddPlacePopup = ({isOpen, onClose, onAddPlace}) => {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
+      textSubmitBtn={textForSubmitBtn.save}
     >
 
       <label className="popup__field">
